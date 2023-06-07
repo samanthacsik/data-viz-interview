@@ -1,0 +1,133 @@
+---
+title: "EDS 230 Lab 2 (Template)"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+# **Goal:** visualize differences in male vs. female salaries across occupations
+
+## Step 0. Load required packages & read in data
+```{r}
+#..........................load packages.........................
+
+
+#......................read in cleaned data......................
+
+
+```
+
+## **Step 1:** What data type(s)?
+
+`occupation` is ___ 
+`total_earnings_male` & `total_earnings_female` ($ earned by males and females) are ___
+
+## **Step 2:** What visualization type (using https://www.data-to-viz.com/)?
+
+Num & Cat > One Cat & Several Numeric > One value per group > lollipop plot (Cleveland dot plot variant)
+
+## **Step 3:** Create a basic plot
+
+```{r}
+
+```
+
+## **Step 4:** Improve clarity and take-home message(s)
+
+Some improvements to make: 
+- color-code male vs. female points
+- have dots overlap line
+- reorder occupations (e.g. arrange them in descending order of average salary)
+- facet wrap by our three groupings (`perc_group:` occupations that are 75%+ female, 45-55% female, and 75%+ male)
+- reformat x-axis values (wages in dollars, $)
+
+```{r}
+
+```
+
+## **Step 5:** Final touches/polishing
+
+- remove unnecessary axis labels
+- add a title, subtitle, caption
+- replace legend with colored text 
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+wages_plot <- ggplot(jobs) +
+  
+  # create dumbbells ----
+  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
+                   y = reorder(occupation, avg_salary), yend = occupation)) +
+  geom_point(aes(x = total_earnings_female, y = occupation), color = "purple", size = 2.5) +
+  geom_point(aes(x = total_earnings_male, y = occupation), color = "orange", size = 2.5) +
+  
+  # facet_wrap by occupation grouping ----
+  facet_wrap(~perc_group_label, nrow = 3, scales = "free_y") + 
+  
+  # axis breaks & labels -----
+  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000, 125000)) + 
+  
+    # title & subtitle (add styling) ----
+  labs(title = "**Earnings by Occupation and Sex**",
+       subtitle = "Median earnings of full-time <span style='color:orange;'>**male**</span> versus <span style='color:purple;'>**female**</span> workers by occupation in 2016",
+       caption = "<span style='color:#919092;'>*Data courtesy of TidyTuesday (March 5, 2019)*</span>") +
+  
+  # set theme ----
+  theme_minimal() +
+  
+  # customize theme ----
+  theme(
+  
+    # facet panels 
+    strip.text.x = element_text(face = "bold"),
+  
+    # title & subtitle 
+    plot.title.position = "plot", # left-align plot title with left-edge of plot, not y-axis (see: https://github.com/tidyverse/ggplot2/issues/3252)
+    plot.title = ggtext::element_textbox_simple(size = 20, padding = margin(t = 0, r = 0, b = 10, l = 0)), # enables markdown text & creates textbox
+    plot.subtitle = ggtext::element_textbox_simple(size = 13, padding = margin(t = 0, r = 0, b = 10, l = 0)), # enable markdown text & creates textbox
+    plot.caption = ggtext::element_markdown(margin = margin(t = 15, r = 0, b = 0, l = 0)), # enable markdown text 
+  
+    # axes 
+    axis.title = element_blank()
+  
+  )
+
+wages_plot
+```
+
