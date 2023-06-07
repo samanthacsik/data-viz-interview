@@ -10,46 +10,60 @@ editor_options:
 ## Step 0. Load required packages & read in data
 ```{r}
 #..........................load packages.........................
-
+library(tidyverse)
 
 #......................read in cleaned data......................
-
-
+jobs <- readRDS(here::here("data", "jobs.rds"))
 ```
 
 ## **Step 1:** What data type(s)?
 
-`occupation` is ___ 
-`total_earnings_male` & `total_earnings_female` ($ earned by males and females) are ___
+`occupation` is categorical
+`total_earnings_male` & `total_earnings_female` ($ earned by males and females) are numerical
 
 ## **Step 2:** What visualization type (using https://www.data-to-viz.com/)?
 
-Num & Cat > One Cat & Several Numeric > One value per group > lollipop plot (Cleveland dot plot variant)
+dotplot
 
 ## **Step 3:** Create a basic plot
 
 ```{r}
+wages_plot <- ggplot(jobs) +
+  
+  # create dumbbells ----
+  geom_point(aes(x = total_earnings_female, y = occupation)) +
+  geom_point(aes(x = total_earnings_male, y = occupation)) +
+  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
+                   y = occupation, yend = occupation))
 
+wages_plot
 ```
 
 ## **Step 4:** Improve clarity and take-home message(s)
 
 Some improvements to make: 
 - color-code male vs. female points
-- have dots overlap line
 - reorder occupations (e.g. arrange them in descending order of average salary)
 - facet wrap by our three groupings (`perc_group:` occupations that are 75%+ female, 45-55% female, and 75%+ male)
 - reformat x-axis values (wages in dollars, $)
 
 ```{r}
+wages_plot <- ggplot(jobs) +
+  
+  # create dumbbells ----
+  geom_point(aes(x = total_earnings_female, y = occupation)) +
+  geom_point(aes(x = total_earnings_male, y = occupation)) +
+  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
+                   y = occupation, yend = occupation))
 
+wages_plot
 ```
 
 ## **Step 5:** Final touches/polishing
 
 - remove unnecessary axis labels
 - add a title, subtitle, caption
-- replace legend with colored text 
+- replace legend with colored-coded text 
 
 ```{r}
 

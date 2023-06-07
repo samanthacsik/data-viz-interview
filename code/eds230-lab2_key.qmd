@@ -75,42 +75,6 @@ wages_plot
 - replace legend with colored text 
 
 ```{r}
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```{r}
 wages_plot <- ggplot(jobs) +
   
   # create dumbbells ----
