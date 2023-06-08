@@ -1,5 +1,5 @@
 ---
-title: "EDS 230 Lab 2 (Key)"
+title: "EDS 240 Lab 2 (Key)"
 format: html
 editor_options: 
   chunk_output_type: console

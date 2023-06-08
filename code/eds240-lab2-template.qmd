@@ -1,5 +1,5 @@
 ---
-title: "EDS 230 Lab 2 (Template)"
+title: "EDS 240 Lab 2 (Template)"
 format: html
 editor_options: 
   chunk_output_type: console
